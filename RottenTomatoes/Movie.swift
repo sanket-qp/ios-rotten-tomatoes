@@ -13,12 +13,20 @@ class Movie {
     let synopsis: String
     let posters: NSDictionary
     let thumbnail: String
+    let detailed: String
     
     init(title: String, synopsis: String, posters: NSDictionary) {
     
         self.title = title
         self.synopsis = synopsis
         self.posters = posters
-        self.thumbnail = posters["thumbnail"] as String
+        
+        var thumbnail  = posters["thumbnail"] as String
+
+        // hack, replace _tmb with _pro
+        self.thumbnail = thumbnail.stringByReplacingOccurrencesOfString("tmb", withString: "pro")
+        
+        var detailed = posters["original"] as String
+        self.detailed = detailed.stringByReplacingOccurrencesOfString("tmb", withString: "ori")
     }
 }

@@ -57,9 +57,32 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.titleLable.text = movie.title
         cell.synopsisLabel.text = movie.synopsis
         cell.posterView.setImageWithURL(NSURL(string: movie.thumbnail))
+        cell.index = indexPath.row
         return cell;
     }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        
+        let index = indexPath.row
+        println("selected \(movies[index].title)")
+        //let detailsController = self.storyboard.instantiateViewControllerWithIdentifier("MovieDetailsViewController") as MovieDetailViewController
+        //self.presentViewController(detailsController, animated: true, completion: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
 
+        
+        if segue.identifier == "MovieDetailsSegue" {
+            
+            println("prepar for Segue")
+            let detailsController = segue.destinationViewController as MovieDetailViewController
+            if let movieCell = sender as? MovieCell {
+                
+                detailsController.movie = self.movies[movieCell.index]
+            }
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
