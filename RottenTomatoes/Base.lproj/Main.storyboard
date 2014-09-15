@@ -7,7 +7,7 @@
         <!--Movies-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="MoviesViewController" customModule="RottenTomatoes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MoviesListController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vXZ-lx-hvc" customClass="MoviesViewController" customModule="RottenTomatoes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -47,7 +47,7 @@
                                             <outlet property="posterView" destination="bsy-h9-14l" id="hPT-aB-Qm3"/>
                                             <outlet property="synopsisLabel" destination="Mbm-Ls-bjw" id="Oc8-Y3-hFi"/>
                                             <outlet property="titleLable" destination="7pg-ug-jZe" id="Hab-Si-WJ6"/>
-                                            <segue destination="MRR-kL-Slf" kind="push" identifier="MovieDetailsSegue" id="2It-5X-9HK"/>
+                                            <segue destination="UB8-ic-g1X" kind="push" identifier="DetailsSegue" id="XeX-iJ-52x"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -72,30 +72,115 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="6Cv-Ee-VR7">
-                                <rect key="frame" x="0.0" y="65" width="320" height="256"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VKk-cV-NcS">
-                                <rect key="frame" x="0.0" y="320" width="320" height="248"/>
+                                <rect key="frame" x="0.0" y="195" width="320" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="6Cv-Ee-VR7">
+                                <rect key="frame" x="0.0" y="62" width="320" height="135"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Lxj-a8-9EW">
+                                <rect key="frame" x="0.0" y="338" width="320" height="260"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="3h9-bh-unH">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="113"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="48e-fq-obG">
+                                        <rect key="frame" x="8" y="121" width="304" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Movie Detail" id="gmK-PA-qej"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="568"/>
                     <connections>
+                        <outlet property="descLabel" destination="48e-fq-obG" id="izD-Ua-ZTI"/>
                         <outlet property="descriptionLabel" destination="VKk-cV-NcS" id="LGw-Qf-NYZ"/>
                         <outlet property="posterImageView" destination="6Cv-Ee-VR7" id="N98-QC-ICg"/>
+                        <outlet property="scrollView" destination="Lxj-a8-9EW" id="yL6-vc-sjt"/>
+                        <outlet property="smallImageView" destination="3h9-bh-unH" id="5hg-la-yCu"/>
                         <outlet property="titleLabel" destination="gmK-PA-qej" id="DIA-0K-l3Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y0V-LD-j2A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1139" y="359"/>
+        </scene>
+        <!--Movie Detail-->
+        <scene sceneID="bnb-uC-JYP">
+            <objects>
+                <viewController storyboardIdentifier="DetailsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UB8-ic-g1X" customClass="DetailsViewController" customModule="RottenTomatoes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="k0f-t5-xpm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="h1X-js-T4R">
+                                <rect key="frame" x="0.0" y="-8" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zoa-bM-8F8">
+                                        <rect key="frame" x="8" y="404" width="304" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ehl-I8-8cv">
+                                        <rect key="frame" x="8" y="428" width="304" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synopsis" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bP6-gE-RbM">
+                                        <rect key="frame" x="8" y="474" width="304" height="103"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BIP-tn-Zv5">
+                                        <rect key="frame" x="8" y="448" width="68" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="fek-TW-68M">
+                                        <rect key="frame" x="0.0" y="8" width="320" height="382"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Movie Detail" id="6c9-52-8KD"/>
+                    <connections>
+                        <outlet property="mpaaRating" destination="BIP-tn-Zv5" id="okS-Cc-eiL"/>
+                        <outlet property="navigationTitle" destination="6c9-52-8KD" id="QKZ-X7-Orh"/>
+                        <outlet property="posterView" destination="fek-TW-68M" id="QVm-Vu-q7N"/>
+                        <outlet property="ratingLabel" destination="Ehl-I8-8cv" id="gqY-vY-tpf"/>
+                        <outlet property="scrollView" destination="h1X-js-T4R" id="QSy-Q9-tMY"/>
+                        <outlet property="synopsisLabel" destination="bP6-gE-RbM" id="wYt-wW-Ykq"/>
+                        <outlet property="titleLabel" destination="zoa-bM-8F8" id="1q8-AE-GxC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kVI-Xi-XO9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1558" y="388"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JjO-xE-ytu">

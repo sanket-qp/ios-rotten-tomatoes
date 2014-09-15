@@ -12,6 +12,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var tableView: UITableView!
     let rottenClient = RottenClient(apiKey: "hfk7z5fdk8ab3eybk6hh8k9e")
+    var refreshControl: UIRefreshControl!
     var movies: [Movie] = [] {
 
         didSet {
@@ -25,8 +26,23 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.delegate = self
         tableView.dataSource = self
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refersh")
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl)
+
         movies = rottenClient.getBoxOffice()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:" , name: "moviesFetched", object: nil)
+        
+        let loading = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        loading.mode = MBProgressHUDModeCustomView
+        loading.labelText = "Loading"
+    }
+    
+    func refresh(sender: AnyObject) {
+    
+        movies = rottenClient.getBoxOffice()
+        self.refreshControl.endRefreshing()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -38,6 +54,8 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func refreshData(sender: AnyObject) {
     
         movies = rottenClient.movies
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -80,7 +98,17 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
                 detailsController.movie = self.movies[movieCell.index]
             }
+        } else if segue.identifier == "DetailsSegue" {
+        
+            println("prepar for Segue")
+            let detailsController = segue.destinationViewController as DetailsViewController
+            if let movieCell = sender as? MovieCell {
+                
+                detailsController.movie = self.movies[movieCell.index]
+            }
+        
         }
+        
     }
     
     /*

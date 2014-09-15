@@ -14,7 +14,10 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var titleLabel: UINavigationItem!
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
-
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var smallImageView: UIImageView!
+    @IBOutlet weak var descLabel: UILabel!
+    
     var movie: Movie! {
     
         didSet {
@@ -40,8 +43,19 @@ class MovieDetailViewController: UIViewController {
         
         if let synopsis = movie?.synopsis {
         
-            descriptionLabel.text = movie.synopsis
+
+            var height = posterImageView.frame.size.height
+            var width = posterImageView.frame.size.width
+            println(height)
+            println(width)
+            
+            
+            //scrollView.contentSize = CGSizeMake(320, 700);
+            scrollView.contentSize = CGSizeMake(width, height)
+            smallImageView.setImageWithURL(NSURL(string: movie?.thumbnail))
+            descLabel.text = synopsis
         }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,6 +63,9 @@ class MovieDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
 
     /*
     // MARK: - Navigation
