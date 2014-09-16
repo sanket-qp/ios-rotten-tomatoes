@@ -29,6 +29,9 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.backgroundColor = .clearColor()
+        self.navigationItem.backBarButtonItem = UIBarButtonItem()
+        self.navigationItem.backBarButtonItem.tintColor = .orangeColor()
+
         // Do any additional setup after loading the view.
         if let thumbnail = movie?.thumbnail {
             
