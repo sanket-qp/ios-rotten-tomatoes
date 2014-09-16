@@ -57,19 +57,14 @@ class RottenClient {
 
             if data {
                 
-                let notification = CWStatusBarNotification()
-                notification.notificationLabelBackgroundColor = .orangeColor()
-                notification.displayNotificationWithMessage("Network Error", completion: nil)
                 var object = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
                 var movies = object["movies"] as [NSDictionary]
                 let m = movies.map({(movie: NSDictionary) -> Movie in
             
-                    //Movie(title: movie["title"] as String, synopsis: movie["synopsis"] as String, posters: movie["posters"] as NSDictionary)
                     Movie(dict: movie)
                 })
             
                 self.movies = m
-                println("Fetched movies")
                 
             } else if (error != nil) {
                 
