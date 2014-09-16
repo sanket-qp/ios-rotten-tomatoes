@@ -8,9 +8,13 @@
 
 import UIKit
 
-class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+
+    
+    var filteredMovies = [Movie]()
+    
     let rottenClient = RottenClient(apiKey: "hfk7z5fdk8ab3eybk6hh8k9e")
     var refreshControl: UIRefreshControl!
     var movies: [Movie] = [] {
@@ -26,12 +30,19 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.delegate = self
         tableView.dataSource = self
+        searchDisplayController.searchResultsDataSource = self
+        searchDisplayController.searchResultsDelegate = self
+        searchDisplayController.delegate = self
+        searchDisplayController.searchResultsTableView.dataSource = self
+        searchDisplayController.searchResultsTableView.delegate = self
+        
+        
         self.refreshControl = UIRefreshControl()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refersh")
         self.refreshControl.tintColor = UIColor.whiteColor()
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)
-
+        
         movies = rottenClient.getBoxOffice()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:" , name: "moviesFetched", object: nil)
         
@@ -65,25 +76,38 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-    
-        return movies.count
+
+        if tableView == searchDisplayController!.searchResultsTableView {
+        
+            return self.filteredMovies.count
+            
+        } else {
+        
+            return movies.count
+        }
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("MovieCell") as MovieCell;
-        var movie = movies[indexPath.row]
+        var isSearch = (tableView == self.tableView) ? false : true
+        var tView = isSearch ? self.tableView : tableView
+        var cell = tView.dequeueReusableCellWithIdentifier("MovieCell") as MovieCell;
+        var movie = isSearch ? self.filteredMovies[indexPath.row] : movies[indexPath.row]
         cell.titleLable.text = movie.title
         cell.synopsisLabel.text = movie.synopsis
         cell.posterView.setImageWithURL(NSURL(string: movie.thumbnail))
         cell.index = indexPath.row
-        return cell;
+        return cell
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController!, didLoadSearchResultsTableView tableView: UITableView!) {
+        
+        tableView.rowHeight = self.tableView.rowHeight
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         
         let index = indexPath.row
-        println("selected \(movies[index].title)")
 
     }
     
@@ -92,16 +116,40 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         if segue.identifier == "MovieDetailSegue" {
             
-            println("prepar for Segue")
             let detailsController = segue.destinationViewController as DetailViewController
+            var movies = searchDisplayController.active ? self.filteredMovies : self.movies
             if let movieCell = sender as? MovieCell {
                 
                 var bgColorView = UIView()
                 bgColorView.backgroundColor = UIColor.grayColor()
                 movieCell.selectedBackgroundView = bgColorView
-                detailsController.movie = self.movies[movieCell.index]
+                detailsController.movie = movies[movieCell.index]
             }
         }
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
+        
+        self.filterMovies(searchString)
+        println(self.filteredMovies)
+        return true
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchScope searchOption: Int) -> Bool {
+
+        self.filterMovies(searchDisplayController!.searchBar.text)
+        println("reload table scope")
+        return false
+    }
+    
+    func filterMovies(searchText: String){
+    
+        println("searching for \(searchText)")
+        self.filteredMovies = self.movies.filter({
+            (movie: Movie) -> Bool in
+                let stringMatch = movie.title.rangeOfString(searchText, options: nil, range: nil, locale: nil)
+                return stringMatch != nil
+        })
     }
     
     /*

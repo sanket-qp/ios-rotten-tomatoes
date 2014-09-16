@@ -46,12 +46,8 @@ class DetailViewController: UIViewController {
         if let synopsis = movie?.synopsis {
             
             scrollView.contentSize = CGSizeMake(320, 650);
-            //scrollView.contentSize = CGSizeMake(width, height);
-            //titleLabel.text = movie?.title
             synopsisLabel.text = synopsis
-
         }
-        
         
         if let score = movie?.score {
         
@@ -63,9 +59,6 @@ class DetailViewController: UIViewController {
             self.navigationItem.title = title
             titleLabel.text = title
         }
-        
-
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,7 +66,7 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
     // MARK: - Navigation
 
