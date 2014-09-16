@@ -86,7 +86,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="728" y="359"/>
+            <point key="canvasLocation" x="1208" y="-769"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="Tzs-nW-KTn">
@@ -149,12 +149,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUD-Hx-0Ka" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1100" y="351"/>
+            <point key="canvasLocation" x="1984" y="-769"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Movies-->
         <scene sceneID="JjO-xE-ytu">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jAC-1o-3b6" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Movies" id="jqG-ip-3wC"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" id="ET8-pF-xCr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -179,7 +180,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="huW-XE-3Qa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="234" y="359"/>
+            <point key="canvasLocation" x="550" y="-769"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -190,4 +191,5 @@
             <size key="landscapeSize" width="568" height="320"/>
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
+    <color key="tintColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
 </document>

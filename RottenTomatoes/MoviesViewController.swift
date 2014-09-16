@@ -103,6 +103,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func searchDisplayController(controller: UISearchDisplayController!, didLoadSearchResultsTableView tableView: UITableView!) {
         
         tableView.rowHeight = self.tableView.rowHeight
+        
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
