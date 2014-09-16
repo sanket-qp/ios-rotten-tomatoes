@@ -89,26 +89,16 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
 
-        
-        if segue.identifier == "MovieDetailsSegue" {
+
+        if segue.identifier == "MovieDetailSegue" {
             
             println("prepar for Segue")
-            let detailsController = segue.destinationViewController as MovieDetailViewController
+            let detailsController = segue.destinationViewController as DetailViewController
             if let movieCell = sender as? MovieCell {
                 
                 detailsController.movie = self.movies[movieCell.index]
             }
-        } else if segue.identifier == "DetailsSegue" {
-        
-            println("prepar for Segue")
-            let detailsController = segue.destinationViewController as DetailsViewController
-            if let movieCell = sender as? MovieCell {
-                
-                detailsController.movie = self.movies[movieCell.index]
-            }
-        
         }
-        
     }
     
     /*
