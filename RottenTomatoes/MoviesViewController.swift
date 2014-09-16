@@ -28,6 +28,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.dataSource = self
         self.refreshControl = UIRefreshControl()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refersh")
+        self.refreshControl.tintColor = UIColor.whiteColor()
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)
 
@@ -83,8 +84,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let index = indexPath.row
         println("selected \(movies[index].title)")
-        //let detailsController = self.storyboard.instantiateViewControllerWithIdentifier("MovieDetailsViewController") as MovieDetailViewController
-        //self.presentViewController(detailsController, animated: true, completion: nil)
+
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
@@ -96,6 +96,9 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let detailsController = segue.destinationViewController as DetailViewController
             if let movieCell = sender as? MovieCell {
                 
+                var bgColorView = UIView()
+                bgColorView.backgroundColor = UIColor.grayColor()
+                movieCell.selectedBackgroundView = bgColorView
                 detailsController.movie = self.movies[movieCell.index]
             }
         }
