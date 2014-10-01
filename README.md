@@ -17,4 +17,4 @@ Completed Features
 * Optional: Customize the navigation bar
 * Optional: Add a search bar
 
-![GIF] (https://github.com/sanket-qp/ios-rotten-tomatoes/blob/master/movies.gif)
+![Demo] (https://vimeo.com/107671691)
